@@ -1,27 +1,31 @@
 import streamlit as st
-import sys
-from pathlib import Path
 from PIL import Image
-
-sys.path.append(str(Path(__file__).parent))
-
 from app.predict import predict_image
 
-st.set_page_config(page_title="Plant Disease Detection", page_icon="🌿")
-
-st.title("🌿 Plant Disease Detection")
-st.write("Upload a plant leaf image to predict its disease.")
-
-uploaded_file = st.file_uploader(
-    "Choose a leaf image",
-    type=["jpg", "jpeg", "png"]
+st.set_page_config(
+    page_title="Plant Disease Detection",
+    page_icon="🌿"
 )
 
-if uploaded_file is not None:
-    image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Uploaded Image", use_container_width=True)
+st.title("🌿 Plant Disease Detection")
+st.write("Upload a leaf image or capture one using your camera.")
 
-    if st.button("Detect Disease"):
+tab1, tab2 = st.tabs(["📁 Upload Image", "📷 Camera"])
+
+with tab1:
+    uploaded = st.file_uploader(
+        "Choose a leaf image",
+        type=["jpg", "jpeg", "png"]
+    )
+
+with tab2:
+    uploaded = st.camera_input("Capture a leaf image")
+
+if uploaded is not None:
+    image = Image.open(uploaded).convert("RGB")
+    st.image(image, caption="Selected Leaf", use_container_width=True)
+
+    if st.button("🔍 Detect Disease"):
         with st.spinner("Analyzing image..."):
             result = predict_image(image)
 
