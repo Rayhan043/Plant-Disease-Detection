@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🌿 Plant Disease Detection</h1>
+    <p>Upload a leaf image or capture one with your camera.</p>
+
+    <section>
+        <h3>Upload Image</h3>
+        <input type="file" id="imageInput" accept="image/*">
+        <button onclick="predictDisease()">Detect Disease</button>
+    </section>
+
+    <hr>
+
+    <section>
+        <h3>Scan with Camera</h3>
+        <video id="camera" width="300" autoplay playsinline></video>
+        <br>
+        <button onclick="startCamera()">Start Camera</button>
+        <button onclick="captureImage()">Capture & Detect</button>
+        <canvas id="canvas" hidden></canvas>
+    </section>
+
+    <img id="preview" alt="Plant leaf preview" hidden>
+    <h3 id="result"></h3>
+
+    <script src="script.js"></script>
+</body>
+</html>
